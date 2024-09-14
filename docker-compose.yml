@@ -1,0 +1,23 @@
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=mariadb
+      - MYSQL_DATABASE=mariadb
+      - MYSQL_USER=mariadb
+      - MYSQL_PASSWORD=mariadb
+    restart: always
+
+  app:
+    build:
+      context: .
+    container_name: django_app
+    ports:
+      - 8000:8000
+    volumes:
+      - ./images:/app/media/images
+    depends_on:
+      - mariadb
