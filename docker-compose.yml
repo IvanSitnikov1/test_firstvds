@@ -11,9 +11,8 @@ services:
       - MYSQL_PASSWORD=mariadb
     restart: always
 
-  app:
-    build:
-      context: .
+  api:
+    build: .
     container_name: django_app
     ports:
       - 8000:8000
@@ -21,3 +20,11 @@ services:
       - ./images:/app/media/images
     depends_on:
       - mariadb
+
+  frontend:
+    build: ./frontend
+    container_name: react_app
+    ports:
+      - 3000:3000
+    stdin_open: true
+    tty: true
